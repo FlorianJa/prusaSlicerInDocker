@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-RUN apt update && apt upgrade
+RUN apt update && apt upgrade -yqq
 RUN apt install -y wget
 
 #install deps for prusa slicer
