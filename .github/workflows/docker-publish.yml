@@ -6,6 +6,11 @@ on:
   #pull_request:
     #branches: [ master ]
 
+env:
+  DOCKER_USER: ${{secrets.DOCKER_USER}}
+  DOCKER_PASSWORD: ${{secrets.DOCKER_TOKEN}}
+  IMAGE_NAME: ${{secrets.IMAGE_NAME}}
+  
 jobs:
 
   build:
@@ -15,12 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: docker login
-      env:
-        DOCKER_USER: ${{secrets.DOCKER_USER}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_TOKEN}}
-        IMAGE_NAME: ${{secrets.IMAGE_NAME}}
-      run: |
-        docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
+      run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
     - name: Build the Docker image
       run: docker build . --file dockerfile --tag $IMAGE_NAME
       
