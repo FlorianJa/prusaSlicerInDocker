@@ -18,10 +18,11 @@ jobs:
       env:
         DOCKER_USER: ${{secrets.DOCKER_USER}}
         DOCKER_PASSWORD: ${{secrets.DOCKER_TOKEN}}
+        IMAGE_NAME: ${{secrets.IMAGE_NAME}}
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{secrets.IMAGE_NAME}}
+      run: docker build . --file Dockerfile --tag $IMAGE_NAME
       
     - name: Docker Push
-      run: docker push ${{env.IMAGE_NAME}}
+      run: docker push $IMAGE_NAME
